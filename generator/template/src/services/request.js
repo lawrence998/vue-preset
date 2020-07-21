@@ -132,6 +132,26 @@ function checkStatus(response) {
 axios.interceptors.request.use(axiosConfig.success, axiosConfig.error);
 axios.interceptors.response.use(axiosResponse.success, axiosResponse.error);
 
+// 处理 restful 接口形式的参数
+const formatRESTful = (url, params) => {
+  if (!params) {
+    return url;
+  }
+  // 查找 {{、}}、或者 {name}，然后进行替换
+  // m 是正则中捕获的组 $0，即匹配的整个子串
+  // n 是正则中捕获的组 $1，即 () 中的内容
+  // function($0, $1, $2, ...)
+  return url.replace(/\{\{|\}\}|\{(\w+)\}/g, (m, n) => {
+    if (m === '{{') {
+      return '{';
+    }
+    if (m === '}}') {
+      return '}';
+    }
+    return params[n];
+  });
+};
+
 /**
  * 基于axios ajax请求
  * @param url
@@ -170,6 +190,7 @@ export default function request(url, {
 
   if (method === 'get') {
     delete defaultConfig.data;
+    defaultConfig.url = formatRESTful(url, defaultConfig.params);
     // 给 get 请求加上时间戳参数，避免从缓存中拿数据。
     if (data !== undefined) {
       defaultConfig.params = Object.assign(defaultConfig.params, {_t: (new Date()).getTime()});
@@ -178,6 +199,8 @@ export default function request(url, {
     }
   } else {
     delete defaultConfig.params;
+
+    defaultConfig.url = formatRESTful(url, defaultConfig.data);
 
     const contentType = headers['Content-Type'];
 
