@@ -1,4 +1,4 @@
-# [vue-cli3-template](https://github.com/cklwblove/vue-cli3-template)
+# [vue-cli3-template](https://github.com/lawrence998/vue-cli3-template)
 
 [![license](https://img.shields.io/badge/vue-2.5.17-brightgreen.svg)](https://github.com/vuejs/vue)
 [![license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/cklwblove/vue-cli3-template/blob/master/LICENSE)
@@ -16,9 +16,9 @@
 
 - 移动 web 的适配方案：引入了 `postcss-pxtorem` 及 `lib-flexible`，可以自由地用 px 去开发
 
-- 常用的 js 工具类： [cloud-utils](https://cklwblove.github.io/cloud-utils/)
+- 常用的 js 工具类： [cloud-utils](https://lawrence998.github.io/cloud-utils/)
 
-- 常用的 Less 的 mixins 集合：[magicless](https://github.com/cklwblove/magicless)
+- 常用的 Less 的 mixins 集合：[magicless](https://github.com/lawrence998/magicless)
 
 ## 目录介绍
 
@@ -50,7 +50,7 @@
 ## 开发及发布
 ```
 # 克隆项目
-git clone git@github.com:cklwblove/vue-cli3-template.git
+git clone git@github.com:lawrence998/vue-cli3-template.git
 
 # 安装依赖
 yarn install
@@ -92,4 +92,4 @@ yarn run report
 - [[Vue CLI 3] 配置 webpack-bundle-analyzer 插件](https://segmentfault.com/a/1190000016247872)
 ## License
 
-[MIT](https://github.com/cklwblove/vue-cli3-template/blob/master/LICENSE)
+[MIT](https://github.com/lawrence998/vue-cli3-template/blob/master/LICENSE)

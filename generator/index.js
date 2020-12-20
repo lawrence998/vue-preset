@@ -1,3 +1,9 @@
+/**
+ * Generator 部分通常在你想要为项目扩展包依赖，创建新的文件或者编辑已经存在的文件时需要。
+ * @param {*} api 
+ * @param {*} options 
+ * @param {*} rootOptions 
+ */
 module.exports = (api, options, rootOptions) => {
   const utils = require('./utils')(api);
 
@@ -159,7 +165,8 @@ module.exports = (api, options, rootOptions) => {
         'lib-flexible': '^0.3.2'
       },
       devDependencies: {
-        'postcss-pxtorem': '^4.0.1'
+        'postcss-pxtorem': '^4.0.1',
+        'vue-cli-plugin-qrcode': '*'
       },
       postcss: {
         plugins: {
@@ -211,6 +218,11 @@ module.exports = (api, options, rootOptions) => {
     api.render('./template');
   } else {
     api.render('./ts-template');
+  }
+
+  // 是否安装vue-listview表格类列表页组件
+  if (options['listview-framework'] === true) {
+    require('./vueInstall.js')(api, options);
   }
 
   // 屏蔽 generator 之后的文件写入操作

@@ -96,9 +96,9 @@ vue create --preset my-preset.json my-project
 
 - 移动 web 的适配方案：引入了 `postcss-pxtorem` 及 `lib-flexible`，可以自由地用 px 去开发
 
-- 常用的 js 工具类： [cloud-utils](https://cklwblove.github.io/cloud-utils/)
+- 常用的 js 工具类： [cloud-utils](https://lawrence998.github.io/cloud-utils/)
 
-- 常用的 Less 的 mixins 集合：[magicless](https://github.com/cklwblove/magicless)
+- 常用的 Less 的 mixins 集合：[magicless](https://github.com/lawrence998/magicless)
 
 - `stylelint` 工具，使样式文件，如 `less`、`css` 更加规范。这里推崇 `stylelint-config-standard`，[文档传送门](https://github.com/stylelint/stylelint-config-standard) ，结合了 `stylelint-order`，让 **css 属性**展现更加高效。
 ```js
@@ -403,7 +403,7 @@ Vue.use(SvgIcon, {
 # 关键点：
 # 1. 在 git 仓库 url 前添加 "direct:"
 # 2. 添加 --clone 参数
-vue create --preset direct:https://github.com/cklwblove/vue-preset.git preset-seed-demo --clone
+vue create --preset direct:https://github.com/lawrence998/vue-preset.git preset-seed-demo --clone
 ```
 #### 解决过程
 1. 打开全局 node_modules/@vue/cli 扫一眼目录结构，从 bin 目录找到 vue create --preset 入口；

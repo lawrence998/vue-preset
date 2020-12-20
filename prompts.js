@@ -91,6 +91,13 @@ module.exports = [
     default: 'none'
   },
   {
+    name: 'listview-framework',
+    type: 'confirm',
+    message: 'Do you need to install the vue-listview table class list page component?',
+    when: answers => answers.ui-framework === 'element-ui',
+    default: true
+  },
+  {
     name: 'mobile-ui-framework',
     type: 'list',
     message: 'Choice Mobile UI Framework(default:none)',
