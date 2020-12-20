@@ -7,6 +7,7 @@ const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const TerserPlugin = require('terser-webpack-plugin');
+const {WebpackManifestPlugin} = require('webpack-manifest-plugin');
 <%_ if (options.language === 'ts' && options['mobile-ui-framework'] === 'vant') { _%>
 const tsImportPluginFactory = require('ts-import-plugin');
 const merge = require('webpack-merge');
@@ -33,19 +34,15 @@ const getSvnInfo = () => {
 
 const genPlugins = () => {
   const plugins = [
-    new WebpackBar(),
+    new WebpackBar()<%_ if (options.application !== 'pc') { _%>,
     // 为静态资源文件添加 hash，防止缓存
     new AddAssetHtmlPlugin([
-      {
-        filepath: path.resolve(__dirname, './public/config.local.js'),
-        hash: true,
-      }<%_ if (options.application !== 'pc') { _%>,
       {
         filepath: path.resolve(__dirname, './public/console.js'),
         hash: true,
       }
+    ])
   <%_ } _%>
-    ]),
   ];
 
   if (isProd()) {
@@ -57,6 +54,23 @@ const genPlugins = () => {
             N}@version: ${pkg.version}${
             N}@description: Build time ${formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss')} and svn version ${getSvnInfo()}
           `
+      }),
+      new WebpackManifestPlugin({
+        fileName: path.resolve(
+          __dirname,
+          'dist',
+          `manifest.${Date.now()}.json`
+        ),
+        filter: ({name, path}) => !name.includes('runtime'),
+        generate (seed, files, entries) {
+          return files.reduce((manifest, {name, path: manifestFilePath}) => {
+            const {root, dir, base} = path.parse(manifestFilePath);
+            return {
+              ...manifest,
+              [name + '-' + base]: {path: manifestFilePath, root, dir}
+            };
+          }, seed);
+        }
       })<%_ if (options.application !== 'offline') { _%>,
       new CompressionWebpackPlugin({
         filename: '[path].gz[query]',
