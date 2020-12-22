@@ -10,6 +10,11 @@ export const routes = [{
     path: '/',
     redirect: '/hello'
   },
+  {
+    component: () => import('@/views/vueListview/index.vue'),
+    name: 'vueListview',
+    path: '/vueListview',
+  },
 ];
 const router = new Router({
   mode: 'hash',

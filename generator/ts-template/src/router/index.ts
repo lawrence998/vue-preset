@@ -20,6 +20,11 @@ const routes: RouteConfig[] = [
     component: loadView('hello'),
   },
   {
+    path: '/vueListview',
+    name: 'vueListview',
+    component: loadView('vueListview'),
+  },
+  {
     path: '*',
     redirect: '/',
   },

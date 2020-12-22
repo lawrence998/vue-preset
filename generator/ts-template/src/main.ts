@@ -31,6 +31,10 @@ import LightSDK from 'light-sdk/dist/index.umd';
 window.LightSDK = LightSDK;
 <%_ } _%>
 
+<%_ if (options['listview-framework'] === true) { _%>
+  import './vue-install/vueInstall';
+<%_ } _%>
+
 import './assets/style/app.less';
 
 // 注册钩子函数
