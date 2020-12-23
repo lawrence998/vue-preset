@@ -216,14 +216,17 @@ module.exports = (api, options, rootOptions) => {
   if (options.language === 'js') {
     // 公共基础目录和文件
     api.render('./template');
+    // 是否安装vue-listview表格类列表页组件
+    if (options['listview-framework'] === true) {
+      require('./vueInstall.js')(api, options);
+    }
   } else {
     api.render('./ts-template');
+    if (options['listview-framework'] === true) {
+      require('./tsVueInstall.js')(api, options);
+    }
   }
 
-  // 是否安装vue-listview表格类列表页组件
-  if (options['listview-framework'] === true) {
-    require('./vueInstall.js')(api, options);
-  }
 
   // 屏蔽 generator 之后的文件写入操作
   // writeFileTree 函数不写文件直接退出，这样 vue-cli3 在写 README.md 时会直接跳过

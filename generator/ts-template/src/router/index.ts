@@ -19,11 +19,13 @@ const routes: RouteConfig[] = [
     name: 'hello',
     component: loadView('hello'),
   },
-  {
-    path: '/vueListview',
-    name: 'vueListview',
-    component: loadView('vueListview'),
-  },
+  <%_ if (options['listview-framework'] === true) { _%>
+    {
+      path: '/vueListview',
+      name: 'vueListview',
+      component: loadView('vueListview'),
+    },
+  <%_ } _%>
   {
     path: '*',
     redirect: '/',

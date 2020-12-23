@@ -10,11 +10,13 @@ export const routes = [{
     path: '/',
     redirect: '/hello'
   },
-  {
-    component: () => import('@/views/vueListview/index.vue'),
-    name: 'vueListview',
-    path: '/vueListview',
-  },
+  <%_ if (options['listview-framework'] === true) { _%>
+    {
+      component: () => import('@/views/vueListview/index.vue'),
+      name: 'vueListview',
+      path: '/vueListview',
+    },
+  <%_ } _%>
 ];
 const router = new Router({
   mode: 'hash',
