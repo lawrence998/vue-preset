@@ -1,7 +1,6 @@
 /**
  *
- * @authors liwb (you@example.org)
- * @date    2020-08-03 19:13
+ * @authors lawrence998 (you@example.org)
  * @version stylelint 配置
  */
 // https://stylelint.docschina.org/user-guide/rules/

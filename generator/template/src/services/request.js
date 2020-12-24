@@ -1,7 +1,6 @@
 /**
  *
- * @authors liwb (lwbhtml@gmail.com)
- * @date    2018/6/5 上午10:43
+ * @authors lawrence998
  * @description https://github.com/mzabriskie/axios
  * 安卓4.4.3一下的手机还是不支持Promise的,需要引入npm install babel-polyfill和npm install babel-runtime，在入口文件上加上即可
  * import 'babel-polyfill';
@@ -86,7 +85,8 @@ const axiosConfig = {
       config.headers['accessToken'] =
         'de4738c67e1bb450be71b660f0716aa4675860cec1ff9bc23d800efb40519cf3';
     }
-    return config;
+
+    return Promise.resolve(config);
   },
   error: (error) => Promise.reject(error)
 };
@@ -101,7 +101,7 @@ const axiosResponse = {
     // 在请求结束后，移除本次请求
     removePending(response);
     responseLog(response);
-    return checkStatus(response);
+    return Promise.resolve(checkStatus(response));
   },
   error: (error) => {
     const { response, code } = error;
@@ -129,8 +129,14 @@ const axiosResponse = {
   }
 };
 
-axios.interceptors.request.use(axiosConfig.success, axiosConfig.error);
-axios.interceptors.response.use(axiosResponse.success, axiosResponse.error);
+// 创建axios实例
+const instance = axios.create({
+  // baseURL: process.env.BASE_URL,
+  timeout: TIMEOUT // 请求超时时间
+});
+
+instance.interceptors.request.use(axiosConfig.success, axiosConfig.error);
+instance.interceptors.response.use(axiosResponse.success, axiosResponse.error);
 
 /**
  * 基于axios ajax请求
@@ -143,7 +149,7 @@ axios.interceptors.response.use(axiosResponse.success, axiosResponse.error);
  * @param dataType
  * @returns {Promise.<T>}
  */
-export default function request (url, {
+export default async function request (url, {
   method = 'post',
   timeout = TIMEOUT,
   prefix = HOME_PREFIX,
@@ -151,45 +157,62 @@ export default function request (url, {
   headers = {},
   dataType = 'json'
 }) {
-  const baseURL = autoMatchBaseUrl(prefix);
+  try {
+    const baseURL = autoMatchBaseUrl(prefix);
 
-  const formatHeaders = { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', ...headers };
+    const formatHeaders = { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', ...headers };
 
-  const defaultConfig = {
-    baseURL,
-    url,
-    method,
-    params: data,
-    data,
-    timeout,
-    headers: formatHeaders,
-    responseType: dataType
-  };
+    const defaultConfig = {
+      baseURL,
+      url,
+      method,
+      params: data,
+      data,
+      timeout,
+      headers: formatHeaders,
+      responseType: dataType,
+      ifHandleError: true // 是否统一处理接口失败(提示)
+    };
 
-  if (method === 'get') {
-    defaultConfig.data = {};
-  } else {
-    defaultConfig.params = {};
+    if (method === 'get') {
+      defaultConfig.data = {};
+    } else {
+      defaultConfig.params = {};
 
-    const contentType = headers['Content-Type'];
+      const contentType = headers['Content-Type'];
 
-    if (typeof contentType !== 'undefined') {
-      if (contentType.indexOf('multipart') !== -1) {
-        // 类型 `multipart/form-data;`
-        defaultConfig.data = data;
-      } else if (contentType.indexOf('json') !== -1) {
-        // 类型 `application/json`
-        // 服务器收到的raw body(原始数据) "{name:"jhon",sex:"man"}"（普通字符串）
-        defaultConfig.data = JSON.stringify(data);
-      } else {
-        // 类型 `application/x-www-form-urlencoded`
-        // 服务器收到的raw body(原始数据) name=homeway&key=nokey
-        defaultConfig.data = Qs.stringify(data);
+      if (typeof contentType !== 'undefined') {
+        if (contentType.includes('multipart')) {
+          // 类型 `multipart/form-data;`
+          defaultConfig.data = data;
+        } else if (contentType.includes('json')) {
+          // 类型 `application/json`
+          // 服务器收到的raw body(原始数据) "{name:"jhon",sex:"man"}"（普通字符串）
+          defaultConfig.data = JSON.stringify(data);
+        } else {
+          // 类型 `application/x-www-form-urlencoded`
+          // 服务器收到的raw body(原始数据) name=homeway&key=nokey
+          defaultConfig.data = Qs.stringify(data);
+        }
       }
     }
-  }
 
-  return axios(defaultConfig);
+    const res = await instance(defaultConfig);
+
+    if (!res && !res.success && defaultConfig.ifHandleError) {
+      // 自定义参数，是否允许全局提示错误信息
+      // Message({
+      //   message: res.msg || '请求处理失败！',
+      //   type: 'error',
+      //   duration: 3000,
+      //   showClose: true
+      // });
+    }
+
+    return res;
+  } catch (error) {
+    return error;
+  }
 }
 
 // 上传文件封装

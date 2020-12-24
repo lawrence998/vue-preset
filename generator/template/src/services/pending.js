@@ -1,6 +1,6 @@
 /**
  *
- * @authors liwb (you@example.org)
+ * @authors lawrence998 (you@example.org)
  * @date    2020/6/6 10:52
  * @description
  * 在开发中，经常会遇到接口重复请求导致的各种问题。

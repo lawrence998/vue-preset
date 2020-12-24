@@ -1,7 +1,6 @@
 /**
  *
- * @authors liwb (you@example.org)
- * @date    2020/6/6 10:52
+ * @authors lawrence998 (you@example.org)
  * @description
  * 在开发中，经常会遇到接口重复请求导致的各种问题。
  对于重复的get请求，会导致页面更新多次，发生页面抖动的现象，影响用户体验。

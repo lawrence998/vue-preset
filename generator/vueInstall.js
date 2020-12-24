@@ -3,7 +3,7 @@ module.exports = (api, options, rootOptions) => {
     dependencies: {
       "@laomao800/vue-listview": "^1.4.0",
     }
-  })
+  });
   api.render('../vue-install');
   api.onCreateComplete(() => {});
 };

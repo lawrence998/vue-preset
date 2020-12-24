@@ -1,7 +1,6 @@
 /**
  *
- * @authors liwb (you@example.org)
- * @date    2019-03-19 16:38
+ * @authors lawrence998 (you@example.org)
  * @version event bus
  * 让在Vue中使用的EventBus也有生命周期
  * 在使用中经常最容易忽视，又必然不能忘记的东西，那就是:清除事件总线 eventBus。

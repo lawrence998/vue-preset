@@ -1,7 +1,6 @@
 /**
  *
- * @authors liwb (lwbhtml@gmail.com)
- * @date    2018/6/5 上午10:43
+ * @authors lawrence998
  * @description 定义过滤器模块
  */
 
