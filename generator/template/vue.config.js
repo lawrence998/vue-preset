@@ -20,14 +20,6 @@ const isProd = () => {
   return process.env.NODE_ENV === 'production';
 };
 
-// 获取 svn 信息
-const getSvnInfo = () => {
-  const svnURL = '';
-  if (svnURL) return svnInfo.sync(svnURL, 'HEAD').lastChangedRev;
-
-  return 'unknown';
-};
-
 const genPlugins = () => {
   const plugins = [
     new WebpackBar(),
@@ -64,9 +56,9 @@ const genPlugins = () => {
       // bannerPlugin
       new webpack.BannerPlugin({
         banner:
-          `@author: Winner FED${
+          `@author: Lawrence${
             N}@version: ${pkg.version}${
-            N}@description: Build time ${formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss')} and svn version ${getSvnInfo()}
+            N}@description: Build time ${formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss')}}
           `
       })<%_ if (options.application !== 'offline') { _%>,
       new CompressionWebpackPlugin({

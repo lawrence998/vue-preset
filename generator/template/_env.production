@@ -1,1 +1,2 @@
-VUE_APP_BASE_API = '/api'
+NODE_ENV = production
+VUE_APP_ENVIRONMENT = 'production'
