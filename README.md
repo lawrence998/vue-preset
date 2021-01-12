@@ -10,7 +10,7 @@
 npm install -g @vue/cli
 
 # 根据远程 preset 创建项目
-vue create --preset cloud-templates/vue-preset my-project
+vue create --preset lawrence998/vue-preset my-project
 # or
 vue create --preset direct:https://github.com/lawrence998/vue-preset my-project --clone
 
