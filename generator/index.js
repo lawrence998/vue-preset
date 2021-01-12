@@ -128,7 +128,7 @@ module.exports = (api, options, rootOptions) => {
         '@vue/cli-plugin-pwa': '^4.2.0',
         '@vue/cli-plugin-router': '^4.2.0',
         '@vue/cli-plugin-typescript': '^4.2.0',
-        '@vue/cli-service': '~4.5.0',
+        '@vue/cli-service': '~4.4.0',
         '@vue/eslint-config-prettier': '^6.0.0',
         '@vue/eslint-config-typescript': '^5.0.1',
         '@winner-fed/eslint-config-win': '^1.0.2',
