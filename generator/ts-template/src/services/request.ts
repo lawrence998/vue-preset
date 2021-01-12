@@ -6,7 +6,7 @@
  * import 'babel-polyfill';
  */
 
-iimport Qs from 'qs';
+import Qs from 'qs';
 import axios, { AxiosRequestConfig } from 'axios';
 import autoMatchBaseUrl from './autoMatchBaseUrl';
 import { TIMEOUT, HOME_PREFIX } from '@/constant';
