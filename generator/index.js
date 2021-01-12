@@ -16,6 +16,9 @@ module.exports = (api, options, rootOptions) => {
         'bootstrap': 'yarn --registry https://registry.npm.taobao.org || npm install --registry https://registry.npm.taobao.org || cnpm install',
         'serve': 'vue-cli-service serve',
         'build': 'node build/index.js',
+        "build--test": "node build/index --mode test",
+        "build--beta": "node build/index --mode beta",
+        'build--prod': 'node build/index.js',
         'zip': 'node build/zip.js',
         'lint': 'vue-cli-service lint',
         'lint:style': 'vue-cli-service lint:style',
@@ -69,7 +72,8 @@ module.exports = (api, options, rootOptions) => {
         'tasksfile': '^5.1.0',
         'vue-template-compiler': '^2.6.11',
         'webpackbar': '^4.0.0',
-        'webstorm-disable-index': '^1.2.0'
+        'webstorm-disable-index': '^1.2.0',
+        'mockjs': '^1.1.0'
       }
     });
   } else {
@@ -79,6 +83,9 @@ module.exports = (api, options, rootOptions) => {
         'bootstrap': 'yarn --registry https://registry.npm.taobao.org || npm install --registry https://registry.npm.taobao.org || cnpm install',
         'serve': 'vue-cli-service serve',
         'build': 'node build/index.ts',
+        "build--test": "node build/index.ts --mode test",
+        "build--beta": "node build/index.ts --mode beta",
+        'build--prod': 'node build/index.ts',
         'zip': 'node build/zip.ts',
         'lint': 'vue-cli-service lint',
         'lint:style': 'vue-cli-service lint:style',
@@ -144,7 +151,8 @@ module.exports = (api, options, rootOptions) => {
         'typescript': '~3.7.5',
         'vue-template-compiler': '^2.6.11',
         'webpackbar': '^4.0.0',
-        'webstorm-disable-index': '^1.2.0'
+        'webstorm-disable-index': '^1.2.0',
+        'mockjs': '^1.1.0'
       }
     });
   }

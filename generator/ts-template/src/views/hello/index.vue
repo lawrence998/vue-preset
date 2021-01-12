@@ -65,6 +65,7 @@
   import {Component, Vue} from 'vue-property-decorator';
   // 工具类
   import {formatDate} from 'utils';
+  import { getDemo, getTest, getCache } from 'services/api';
 
   @Component
   export default class Hello extends Vue {
@@ -73,18 +74,35 @@
 
     private created() {
       this.movieComingSoon();
+      this.mockTest();
+      this.cacheTest();
     }
 
-    private movieComingSoon() {
-      const data = {};
-      this.$services.octocat({
-        method: 'get',
-        data
-      }).then((res) => {
-        console.log('接口请求成功：' + JSON.stringify(res, null, 2));
-      }).catch((err) => {
-        console.log('接口请求异常：' + err);
-      });
+    private async movieComingSoon() {
+      try {
+        const res = await getTest();
+        console.log('movieComingSoon-res: ', res);
+      } catch (error) {
+        console.log('movieComingSoon-error: ', error);
+      }
+    }
+
+    private async mockTest() {
+      try {
+        const res = await getDemo();
+        console.log('res: ', res);
+      } catch (error) {
+        console.log('error: ', error);
+      }
+    }
+
+    private async cacheTest() {
+      try {
+        const res = await getCache();
+        console.log('cacheTest-res: ', res);
+      } catch (error) {
+        console.log('cacheTest-error: ', error);
+      }
     }
   }
 </script>

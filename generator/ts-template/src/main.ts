@@ -10,7 +10,7 @@ import router from './router';
 import './icons';
 import './router/router.interceptor';
 import './filters';
-import './services';
+import './services/mock';
 import './bus';
 import './pwa/register-service-worker';
 <%_ if (options['ui-framework'] === 'element-ui') { _%>

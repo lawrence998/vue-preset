@@ -4,10 +4,10 @@
  * @description 定义项目所需常量
  */
 
-const TIMEOUT: number = 25000;
-const PAGE_NUM: number = 15;
-const UPLOAD_PREFIX: string = 'upload/';
-const HOME_PREFIX: string = 'home/';
+const TIMEOUT = 25000;
+const PAGE_NUM = 15;
+const UPLOAD_PREFIX = 'upload/';
+const HOME_PREFIX = 'home/';
 
 export {
   TIMEOUT,

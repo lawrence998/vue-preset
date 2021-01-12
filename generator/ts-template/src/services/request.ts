@@ -6,7 +6,7 @@
  * import 'babel-polyfill';
  */
 
-import Qs from 'qs';
+iimport Qs from 'qs';
 import axios, { AxiosRequestConfig } from 'axios';
 import autoMatchBaseUrl from './autoMatchBaseUrl';
 import { TIMEOUT, HOME_PREFIX } from '@/constant';
@@ -131,8 +131,14 @@ const axiosResponse = {
   },
 };
 
-axios.interceptors.request.use(axiosConfig.success, axiosConfig.error);
-axios.interceptors.response.use(axiosResponse.success, axiosResponse.error);
+// 创建axios实例
+const instance = axios.create({
+  // baseURL: process.env.BASE_URL,
+  timeout: TIMEOUT // 请求超时时间
+});
+
+instance.interceptors.request.use(axiosConfig.success, axiosConfig.error);
+instance.interceptors.response.use(axiosResponse.success, axiosResponse.error);
 
 /**
  * 基于axios ajax请求
@@ -145,62 +151,84 @@ axios.interceptors.response.use(axiosResponse.success, axiosResponse.error);
  * @param dataType
  * @returns {Promise.<T>}
  */
-export default function request(url, {
+export default async function request({
   method = 'post',
   timeout = TIMEOUT,
   prefix = HOME_PREFIX,
   data = {},
   headers = {},
-  dataType = 'json'
+  dataType = 'json',
+  url = '',
+  isMock = false
 }) {
-  const baseURL = autoMatchBaseUrl(prefix);
+  try {
 
-  const formatHeaders = Object.assign({
-    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-  }, headers);
+    const baseURL = autoMatchBaseUrl(prefix, url, isMock);
 
-  const defaultConfig = {
-    baseURL,
-    url,
-    method,
-    params: data,
-    data,
-    timeout,
-    headers: formatHeaders,
-    responseType: dataType
-  };
+    const formatHeaders = Object.assign({
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+    }, headers);
 
-  if (method === 'get') {
-    defaultConfig.data = {};
-  } else {
-    defaultConfig.params = {};
+    const defaultConfig:any = {
+      baseURL,
+      url,
+      method,
+      params: data,
+      data,
+      timeout,
+      headers: formatHeaders,
+      responseType: dataType,
+      ifHandleError: true // 是否统一处理接口失败(提示)
+    };
+    console.log('defaultConfig: ', defaultConfig);
 
-    const contentType = headers['Content-Type'];
+    if (method === 'get') {
+      defaultConfig.data = {};
+    } else {
+      defaultConfig.params = {};
 
-    if (typeof contentType !== 'undefined') {
-      if (contentType.indexOf('multipart') !== -1) {
-        // 类型 `multipart/form-data;`
-        defaultConfig.data = data;
-      } else if (contentType.indexOf('json') !== -1) {
-        // 类型 `application/json`
-        // 服务器收到的raw body(原始数据) "{name:"jhon",sex:"man"}"（普通字符串）
-        defaultConfig.data = JSON.stringify(data);
-      } else {
-        // 类型 `application/x-www-form-urlencoded`
-        // 服务器收到的raw body(原始数据) name=homeway&key=nokey
-        defaultConfig.data = Qs.stringify(data);
+      const contentType = headers['Content-Type'];
+
+      if (typeof contentType !== 'undefined') {
+        if (contentType.indexOf('multipart') !== -1) {
+          // 类型 `multipart/form-data;`
+          defaultConfig.data = data;
+        } else if (contentType.indexOf('json') !== -1) {
+          // 类型 `application/json`
+          // 服务器收到的raw body(原始数据) "{name:"jhon",sex:"man"}"（普通字符串）
+          defaultConfig.data = JSON.stringify(data);
+        } else {
+          // 类型 `application/x-www-form-urlencoded`
+          // 服务器收到的raw body(原始数据) name=homeway&key=nokey
+          defaultConfig.data = Qs.stringify(data);
+        }
       }
+
     }
+    const res:any = await instance(defaultConfig);
+
+    if (!res && !res.success && defaultConfig.ifHandleError) {
+      // 自定义参数，是否允许全局提示错误信息
+      // Message({
+      //   message: res.msg || '请求处理失败！',
+      //   type: 'error',
+      //   duration: 3000,
+      //   showClose: true
+      // });
+    }
+    return res;
+  } catch (error) {
+    return error;
   }
 
-  return axios(defaultConfig as AxiosRequestConfig);
 }
 
 // 上传文件封装
-export const uploadFile = (url, formData) => {
-  return request(url, {
+export const uploadFile = (obj:any) => {
+  return request({
+    url: obj.url,
     method: 'post',
-    data: formData,
+    data: obj.formData,
     headers: {'Content-Type': 'multipart/form-data'}
   });
 };
