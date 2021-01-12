@@ -16,7 +16,7 @@ const routes: RouteConfig[] = [
   {
     path: '/',
     name: 'hello',
-    component: loadView('hello'),
+    component: loadView('hello')
   },
   <%_ if (options['listview-framework'] === true) { _%>
     {
@@ -27,11 +27,11 @@ const routes: RouteConfig[] = [
   <%_ } _%>
   {
     path: '*',
-    redirect: '/',
-  },
+    redirect: '/'
+  }
 ];
 
 export default new Router({
   mode: 'hash',
-  routes,
+  routes
 });

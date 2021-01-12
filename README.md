@@ -1,12 +1,12 @@
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/cloud-templates/vue-preset)
 
 # vue-preset
-结合 vue-cli3 的 preset 搭建基于 git repo 的前端项目模板
+结合 vue-cli4.x 的 preset 搭建基于 git repo 的前端项目模板。**支持Vue3.0特性**
 
 ## 快速开始
 
 ```bash
-# 安装 vue-cli 3.0
+# 安装 vue-cli 4.0
 npm install -g @vue/cli
 
 # 根据远程 preset 创建项目
@@ -35,4 +35,5 @@ npm run docs:build
 - [x] 引入 vant-ui
 - [x] 新增**TS**模板
 - [x] 新增离线包相关特性
-
+- [x] 支持vue3.0 
+- [x] 支持生成see平台发布物，一键上传see平台

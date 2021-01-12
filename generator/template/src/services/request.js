@@ -9,7 +9,7 @@
 import Qs from 'qs';
 import axios from 'axios';
 import autoMatchBaseUrl from './autoMatchBaseUrl';
-import { TIMEOUT, HOME_PREFIX } from '@/constant';
+import { TIMEOUT } from '@/constant';
 import { addPending, removePending } from './pending';
 
 const codeMessage = {
@@ -30,7 +30,7 @@ const codeMessage = {
   504: '网关超时。'
 };
 
-function responseLog (response) {
+function responseLog(response) {
   if (process.env.NODE_ENV === 'development') {
     const randomColor = `rgba(${Math.round(Math.random() * 255)},${Math.round(
       Math.random() * 255
@@ -49,7 +49,7 @@ function responseLog (response) {
   }
 }
 
-function checkStatus (response) {
+function checkStatus(response) {
   // 如果http状态码正常，则直接返回数据
   if (response) {
     const { status, statusText } = response;

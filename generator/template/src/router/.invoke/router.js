@@ -1,10 +1,11 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 Vue.use(Router);
-export const routes = [{
+export const routes = [
+  {
     component: () => import('@/views/hello/index.vue'),
     name: 'hello',
-    path: '/hello',
+    path: '/hello'
   },
   {
     path: '/',
@@ -20,6 +21,6 @@ export const routes = [{
 ];
 const router = new Router({
   mode: 'hash',
-  routes,
+  routes
 });
 export default router;

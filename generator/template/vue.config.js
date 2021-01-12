@@ -9,6 +9,7 @@ const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const VueRouterInvokeWebpackPlugin = require('@liwb/vue-router-invoke-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const {WebpackManifestPlugin} = require('webpack-manifest-plugin');
 const svnInfo = require('svn-info');
 
 const N = '\n';
@@ -36,19 +37,15 @@ const genPlugins = () => {
           path: '/'
         }
       ]
-    }),
+    })<%_ if (options.application !== 'pc') { _%>,
     // 为静态资源文件添加 hash，防止缓存
     new AddAssetHtmlPlugin([
-      {
-        filepath: path.resolve(__dirname, './public/config.local.js'),
-        hash: true,
-      }<%_ if (options.application !== 'pc') { _%>,
       {
         filepath: path.resolve(__dirname, './public/console.js'),
         hash: true,
       }
+    ])
   <%_ } _%>
-    ]),
   ];
 
   if (isProd()) {
@@ -60,6 +57,23 @@ const genPlugins = () => {
             N}@version: ${pkg.version}${
             N}@description: Build time ${formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss')}}
           `
+      }),
+      new WebpackManifestPlugin({
+        fileName: path.resolve(
+          __dirname,
+          'dist',
+          `manifest.${Date.now()}.json`
+        ),
+        filter: ({name, path}) => !name.includes('runtime'),
+        generate (seed, files, entries) {
+          return files.reduce((manifest, {name, path: manifestFilePath}) => {
+            const {root, dir, base} = path.parse(manifestFilePath);
+            return {
+              ...manifest,
+              [name + '-' + base]: {path: manifestFilePath, root, dir}
+            };
+          }, seed);
+        }
       })<%_ if (options.application !== 'offline') { _%>,
       new CompressionWebpackPlugin({
         filename: '[path].gz[query]',
@@ -206,13 +220,23 @@ module.exports = {
     // plugin
 
     // preload
-    // runtime.js 内联的形式嵌入
+    // it can improve the speed of the first screen, it is recommended to turn on preload
     config
       .plugin('preload')
-      .tap(args => {
-        args[0].fileBlacklist.push(/runtime\./);
-        return args;
-      });
+      .tap(() => [
+      {
+        rel: 'preload',
+        // to ignore runtime.js
+        // https://github.com/vuejs/vue-cli/blob/dev/packages/@vue/cli-service/lib/config/app.js#L171
+        fileBlacklist: [/\.map$/, /hot-update\.js$/, /runtime\..*\.js$/],
+        include: 'initial'
+      }
+    ]);
+
+    // when there are many pages, it will cause too many meaningless requests
+    config
+      .plugins
+      .delete('prefetch');
 
     // webpack-html-plugin
     config
