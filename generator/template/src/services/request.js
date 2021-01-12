@@ -149,16 +149,18 @@ instance.interceptors.response.use(axiosResponse.success, axiosResponse.error);
  * @param dataType
  * @returns {Promise.<T>}
  */
-export default async function request (url, {
+export default async function request ({
   method = 'post',
   timeout = TIMEOUT,
   prefix = HOME_PREFIX,
+  url = '',
   data = {},
   headers = {},
-  dataType = 'json'
+  dataType = 'json',
+  isMock = false
 }) {
   try {
-    const baseURL = autoMatchBaseUrl(prefix);
+    const baseURL = autoMatchBaseUrl(prefix, url, isMock);
 
     const formatHeaders = { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', ...headers };
 
