@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === 'production') {
       // Used to display of a 'refresh' banner following a service worker update.
       // Set the event payload to the service worker registration object.
       document.dispatchEvent(
-        new CustomEvent('swUpdated', {detail: registration})
+        new CustomEvent('swUpdated', { detail: registration })
       );
     },
     offline() {

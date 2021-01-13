@@ -62,15 +62,15 @@
   /**
    * 以下仅为事例代码，可以随意扩展修改
    */
-  import {Component, Vue} from 'vue-property-decorator';
+  import { Component, Vue } from 'vue-property-decorator';
   // 工具类
-  import {formatDate} from 'utils';
+  import { formatDate } from 'utils';
   import { getDemo, getTest, getCache } from 'services/api';
 
   @Component
   export default class Hello extends Vue {
-    private msg: string = 'Welcome to Your Vue.js + TypeScript App';
-    private message: string = `现在时间是：${formatDate(Date.now())}`;
+    private msg = 'Welcome to Your Vue.js + TypeScript App';
+    private message = `现在时间是：${formatDate(Date.now())}`;
 
     private created() {
       this.movieComingSoon();

@@ -9,8 +9,9 @@ import Router, { RouteConfig } from 'vue-router';
 
 Vue.use(Router);
 
-const loadView = (view: string): AsyncComponent => (): any =>
-  import(`@views/${view}/index.vue`);
+const loadView = (view: string): AsyncComponent => {
+  return (resolve: any) => require([`@/views/${view}/index.vue`], resolve);
+};
 
 const routes: RouteConfig[] = [
   {
@@ -19,16 +20,16 @@ const routes: RouteConfig[] = [
     component: loadView('hello'),
   },
   <%_ if (options['listview-framework'] === true) { _%>
-    {
-      path: '/vueListview',
-      name: 'vueListview',
-      component: loadView('vueListview'),
-    },
+  {
+    path: '/vueListview',
+    name: 'vueListview',
+    component: loadView('vueListview'),
+  },
   <%_ } _%>
   {
     path: '*',
     redirect: '/',
-  },
+  }
 ];
 
 export default new Router({

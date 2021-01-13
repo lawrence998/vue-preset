@@ -28,7 +28,7 @@ const addPending = (config) => {
     config.method,
     config.url,
     Qs.stringify(config.params),
-    config.data,
+    config.data
   ].join('&');
   config.cancelToken =
     config.cancelToken ||
@@ -49,7 +49,7 @@ const removePending = (config) => {
     config.method,
     config.url,
     Qs.stringify(config.params),
-    config.data,
+    config.data
   ].join('&');
   if (pending.has(url)) {
     // 如果在 pending 中存在当前请求标识，需要取消当前请求，并且移除
