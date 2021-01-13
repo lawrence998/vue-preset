@@ -17,22 +17,22 @@ const routes: RouteConfig[] = [
   {
     path: '/',
     name: 'hello',
-    component: loadView('hello'),
+    component: loadView('hello')
   },
   <%_ if (options['listview-framework'] === true) { _%>
   {
     path: '/vueListview',
     name: 'vueListview',
-    component: loadView('vueListview'),
+    component: loadView('vueListview')
   },
   <%_ } _%>
   {
     path: '*',
-    redirect: '/',
+    redirect: '/'
   }
 ];
 
 export default new Router({
   mode: 'hash',
-  routes,
+  routes
 });
