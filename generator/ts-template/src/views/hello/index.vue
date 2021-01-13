@@ -32,18 +32,35 @@
 
               private created() {
                 this.movieComingSoon();
+                this.mockTest();
+                this.cacheTest();
               }
 
-              private movieComingSoon() {
-                const data = {};
-                this.$services.octocat({
-                  method: &#x27;get&#x27;,
-                  data
-                }).then((res) =&gt; {
-                  console.log(&#x27;接口请求成功：&#x27; + JSON.stringify(res, null, 2));
-                }).catch((err) =&gt; {
-                  console.log(&#x27;接口请求异常：&#x27; + err);
-                });
+              private async movieComingSoon() {
+                try {
+                  const res = await getTest();
+                  console.log(&#x27;movieComingSoon-res: &#x27;, res);
+                } catch (error) {
+                  console.log(&#x27;movieComingSoon-error: &#x27;, error);
+                }
+              }
+
+              private async mockTest() {
+                try {
+                  const res = await getDemo();
+                  console.log(&#x27;res: &#x27;, res);
+                } catch (error) {
+                  console.log(&#x27;error: &#x27;, error);
+                }
+              }
+
+              private async cacheTest() {
+                try {
+                  const res = await getCache();
+                  console.log(&#x27;cacheTest-res: &#x27;, res);
+                } catch (error) {
+                  console.log(&#x27;cacheTest-error: &#x27;, error);
+                }
               }
 
             }
