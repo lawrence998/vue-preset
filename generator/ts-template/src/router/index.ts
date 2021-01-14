@@ -11,7 +11,7 @@ Vue.use(Router);
 
 const loadView = (view: string): AsyncComponent => {
   return (resolve: any) => require([`@/views/${view}/index.vue`], resolve);
-}
+};
 
 const routes: RouteConfig[] = [
   {

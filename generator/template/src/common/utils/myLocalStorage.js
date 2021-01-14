@@ -1,6 +1,7 @@
 class NewStorage {
+  name = ''
   constructor(name) {
-    this.name = 'storage';
+    this.name = name;
   }
 
   // 设置缓存
@@ -73,5 +74,5 @@ class NewStorage {
   }
 }
 
-const newStorage = new NewStorage();
+const newStorage = new NewStorage('storage');
 export default newStorage;

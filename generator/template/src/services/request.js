@@ -9,7 +9,7 @@
 import Qs from 'qs';
 import axios from 'axios';
 import autoMatchBaseUrl from './autoMatchBaseUrl';
-import { TIMEOUT, HOME_PREFIX } from '@/constant';
+import { TIMEOUT, BASE_PREFIX } from '@/constant';
 import { addPending, removePending } from './pending';
 
 const codeMessage = {
@@ -147,12 +147,13 @@ instance.interceptors.response.use(axiosResponse.success, axiosResponse.error);
  * @param data
  * @param headers
  * @param dataType
+ * @param isMock
  * @returns {Promise.<T>}
  */
 export default async function request ({
   method = 'post',
   timeout = TIMEOUT,
-  prefix = HOME_PREFIX,
+  prefix = BASE_PREFIX,
   url = '',
   data = {},
   headers = {},

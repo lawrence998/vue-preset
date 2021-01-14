@@ -7,9 +7,9 @@
  */
 
 import Qs from 'qs';
-import axios, { AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 import autoMatchBaseUrl from './autoMatchBaseUrl';
-import { TIMEOUT, HOME_PREFIX } from '@/constant';
+import { TIMEOUT, BASE_PREFIX } from '@/constant';
 import { addPending, removePending } from './pending';
 
 const codeMessage: object = {
@@ -27,7 +27,7 @@ const codeMessage: object = {
   500: '服务器发生错误，请检查服务器。',
   502: '网关错误。',
   503: '服务不可用，服务器暂时过载或维护。',
-  504: '网关超时。',
+  504: '网关超时。'
 };
 
 // 检测请求状态
@@ -41,13 +41,13 @@ function checkStatus(response) {
     }
     return {
       status,
-      msg: codeMessage[status] || statusText,
+      msg: codeMessage[status] || statusText
     };
   }
   // 异常状态下，把错误信息返回去
   return {
     status: -404,
-    msg: '网络异常',
+    msg: '网络异常'
   };
 }
 
@@ -88,7 +88,7 @@ const axiosConfig = {
     }
     return config;
   },
-  error: (error) => Promise.reject(error),
+  error: (error) => Promise.reject(error)
 };
 
 /**
@@ -128,7 +128,7 @@ const axiosResponse = {
       console.log('断网了~');
       window.$eventBus.$emit('isBrokenNetwork', true);
     }
-  },
+  }
 };
 
 // 创建axios实例
@@ -154,7 +154,7 @@ instance.interceptors.response.use(axiosResponse.success, axiosResponse.error);
 export default async function request({
   method = 'post',
   timeout = TIMEOUT,
-  prefix = HOME_PREFIX,
+  prefix = BASE_PREFIX,
   data = {},
   headers = {},
   dataType = 'json',
@@ -165,11 +165,12 @@ export default async function request({
 
     const baseURL = autoMatchBaseUrl(prefix, url, isMock);
 
-    const formatHeaders = Object.assign({
-      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-    }, headers);
+    const formatHeaders = {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      ...headers
+    };
 
-    const defaultConfig:any = {
+    const defaultConfig: any = {
       baseURL,
       url,
       method,
@@ -205,7 +206,7 @@ export default async function request({
       }
 
     }
-    const res:any = await instance(defaultConfig);
+    const res: any = await instance(defaultConfig);
 
     if (!res && !res.success && defaultConfig.ifHandleError) {
       // 自定义参数，是否允许全局提示错误信息
@@ -224,11 +225,11 @@ export default async function request({
 }
 
 // 上传文件封装
-export const uploadFile = (obj:any) => {
+export const uploadFile = (obj: any) => {
   return request({
     url: obj.url,
     method: 'post',
     data: obj.formData,
-    headers: {'Content-Type': 'multipart/form-data'}
+    headers: { 'Content-Type': 'multipart/form-data' }
   });
 };

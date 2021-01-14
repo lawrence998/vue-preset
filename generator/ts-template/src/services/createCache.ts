@@ -10,8 +10,7 @@ import {
 
 // 接口缓存时间 3小时
 const cacheTime = 3 * 3600 * 1000;
-const createCache = async function (obj:any) {
-  console.log('obj: ', obj);
+const createCache = async function (obj: any) {
   if (obj) {
     let cacheName = obj.url;
 

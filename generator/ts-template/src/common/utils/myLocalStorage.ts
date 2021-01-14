@@ -12,7 +12,7 @@ class NewStorage {
       expires: '',
       startTime: new Date().getTime() // 记录何时将值存入缓存，毫秒级
     };
-    const options:any = {};
+    const options: any = {};
     // 将obj和传进来的params合并
     Object.assign(options, obj, params);
     if (options.expires) {
@@ -35,7 +35,7 @@ class NewStorage {
 
   // 拿到缓存
   getItem(name) {
-    let item:any = localStorage.getItem(name);
+    let item: any = localStorage.getItem(name);
     // 先将拿到的试着进行json转为对象的形式
     if (item) {
       try {
