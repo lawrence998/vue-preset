@@ -174,7 +174,8 @@ module.exports = (api, options, rootOptions) => {
       },
       devDependencies: {
         'postcss-pxtorem': '^4.0.1',
-        'vue-cli-plugin-qrcode': '*'
+        'qrcode-terminal': '^0.12.0',
+        'vue-cli-plugin-qrcode': '*' 
       },
       postcss: {
         plugins: {

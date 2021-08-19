@@ -1,15 +1,12 @@
-'use strict';
-
 const path = require('path');
 const pkg = require('./package.json');
 const webpack = require('webpack');
-const {formatDate} = require('@winner-fed/cloud-utils');
+const { formatDate } = require('@winner-fed/cloud-utils');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const VueRouterInvokeWebpackPlugin = require('@liwb/vue-router-invoke-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const svnInfo = require('svn-info');
 
 const N = '\n';
 const resolve = (dir) => {
