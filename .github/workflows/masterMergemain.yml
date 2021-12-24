@@ -16,6 +16,6 @@ jobs:
           -H "Accept: application/vnd.github.v3+json" \
           -H "content-type: application/json" \
           -H "authorization: Bearer ${{ secrets.ACCESS_TOKEN }}" \
-          https://github.com/AutumnWhj/GithubAction/merges \
+          https://github.com/cloud-templates/GithubAction/merges \
           -d '{"base":"master","head":"main"}'
-          
+
