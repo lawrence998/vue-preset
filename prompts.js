@@ -34,6 +34,11 @@ const pcUI2 = [
 
 module.exports = [
   {
+    type: 'text',
+    name: 'createProject',
+    message: `推荐使用更为快速的创建项目方式\n npm init @winner-fed/project\n 详见：https://github.com/cloud-templates/create-project`,
+  },
+  {
     name: 'preset',
     type: 'list',
     message: 'Please pick a preset',

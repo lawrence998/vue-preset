@@ -10,6 +10,8 @@ import axios from 'axios';
 import autoMatchBaseUrl from './autoMatchBaseUrl';
 import { TIMEOUT } from '@/constant';
 
+export const requestInstance = axios.create({});
+
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
@@ -28,7 +30,7 @@ const codeMessage = {
   504: '网关超时。'
 };
 
-function responseLog(response) {
+function responseLog (response) {
   if (process.env.NODE_ENV === 'development') {
     const randomColor = `rgba(${Math.round(Math.random() * 255)},${Math.round(
       Math.random() * 255
@@ -51,10 +53,10 @@ function responseLog(response) {
   }
 }
 
-function checkStatus(response) {
+function checkStatus (response) {
   // 如果http状态码正常，则直接返回数据
   if (response) {
-    const { status, statusText } = response;
+    const {status, statusText} = response;
     if ((status >= 200 && status < 300) || status === 304) {
       // 如果不需要除了data之外的数据，可以直接 return response.data
       return response.data;
@@ -72,7 +74,7 @@ function checkStatus(response) {
 }
 
 /**
- * 全局请求扩展配置
+ * requestInstance 实例全局请求扩展配置
  * 添加一个请求拦截器 （于transformRequest之前处理）
  */
 const axiosRequest = {
@@ -89,7 +91,7 @@ const axiosRequest = {
 };
 
 /**
- * 全局请求响应处理
+ * requestInstance 实例全局请求响应处理
  * 添加一个返回拦截器 （于transformResponse之后处理）
  * 返回的数据类型默认是json，若是其他类型（text）就会出现问题，因此用try,catch捕获异常
  */
@@ -99,7 +101,7 @@ const axiosResponse = {
     return checkStatus(response);
   },
   error: (error) => {
-    const { response, code } = error;
+    const {response, code} = error;
     // 接口请求异常统一处理
     if (code === 'ECONNABORTED') {
       // Timeout error
@@ -119,8 +121,8 @@ const axiosResponse = {
   }
 };
 
-axios.interceptors.request.use(axiosRequest.success, axiosRequest.error);
-axios.interceptors.response.use(axiosResponse.success, axiosResponse.error);
+requestInstance.interceptors.request.use(axiosRequest.success, axiosRequest.error);
+requestInstance.interceptors.response.use(axiosResponse.success, axiosResponse.error);
 
 /**
  * 基于axios ajax请求
@@ -133,7 +135,7 @@ axios.interceptors.response.use(axiosResponse.success, axiosResponse.error);
  * @param dataType
  * @returns {Promise.<T>}
  */
-export default function request(
+export default function request (
   url,
   {
     method = 'post',
@@ -164,13 +166,14 @@ export default function request(
     transformResponse: axios.defaults.transformResponse.concat(function (data) {
       if (typeof data === 'string' && data.length) {
         try {
-          data = JSON.parse(data);
+          return JSON.parse(data);
         } catch (e) {
           console.error(e);
+          return {};
         }
       }
       return data;
-    }),
+    })
   };
 
   if (method === 'get') {
@@ -196,7 +199,7 @@ export default function request(
     }
   }
 
-  return axios(defaultConfig);
+  return requestInstance(defaultConfig);
 }
 
 // 上传文件封装
@@ -204,6 +207,6 @@ export const uploadFile = (url, formData) => {
   return request(url, {
     method: 'post',
     data: formData,
-    headers: { 'Content-Type': 'multipart/form-data' }
+    headers: {'Content-Type': 'multipart/form-data'}
   });
 };
