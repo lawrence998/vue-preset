@@ -3,6 +3,8 @@
 # vue-preset
 结合 vue-cli4.x 的 preset 搭建基于 git repo 的前端项目模板。**支持Vue3.0特性**
 
+**注意：本脚手架不做维护，请转移到 [create-project](https://github.com/cloud-templates/create-project)**
+
 ## 快速开始
 
 ```bash
