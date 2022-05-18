@@ -1,8 +1,7 @@
-'use strict';
 const path = require('path');
 const fs = require('fs');
 const archiver = require('archiver');
-const utils = require('@winner-fed/cloud-utils');
+const utils = require('@lawrence_ch/cloud-utils');
 const pkg = require('../package.json');
 const outDir = `${path.resolve(__dirname, '../')}/${pkg.name}_${utils.formatDate(new Date(), 'yyyy-MM-dd_HH:mm:ss')}.zip`;
 

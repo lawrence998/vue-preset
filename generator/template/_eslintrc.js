@@ -3,7 +3,7 @@
 
 module.exports = {
   extends: [
-    '@winner-fed/eslint-config-win',
-    '@winner-fed/eslint-config-win/vue',
+    '@lawrence_ch/eslint-config-win',
+    '@lawrence_ch/eslint-config-win/vue',
   ]
 }

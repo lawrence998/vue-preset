@@ -42,8 +42,8 @@ module.exports = (api, options, rootOptions) => {
     // 安装一些基础公共库
     api.extendPackage({
       dependencies: {
-        '@winner-fed/cloud-utils': '*',
-        '@winner-fed/magicless': '*',
+        '@lawrence_ch/cloud-utils': '*',
+        '@lawrence_ch/magicless': '*',
         'axios': '0.19.2',
         'normalize.css': '8.0.1',
         'vue': '^2.6.11',
@@ -52,11 +52,11 @@ module.exports = (api, options, rootOptions) => {
       },
       devDependencies: {
         '@liwb/vue-router-invoke-webpack-plugin': '^0.3.2',
-        '@winner-fed/eslint-config-win': '^1.0.2',
+        '@lawrence_ch/eslint-config-win': '^1.0.1',
         '@vue/eslint-config-prettier': '^6.0.0',
-        '@winner-fed/stylelint-config-win': '^0.1.0',
-        '@winner-fed/vue-cli-plugin-eslint': '^1.0.2',
-        '@winner-fed/vue-cli-plugin-stylelint': '^1.0.2',
+        '@lawrence_ch/stylelint-config-win': '^0.1.0',
+        '@lawrence_ch/vue-cli-plugin-eslint': '^1.0.0',
+        '@lawrence_ch/vue-cli-plugin-stylelint': '^1.0.0',
         'add-asset-html-webpack-plugin': '^3.1.3',
         'archiver': '^3.0.0',
         'babel-eslint': '^10.0.1',
@@ -68,7 +68,6 @@ module.exports = (api, options, rootOptions) => {
         'prettier': '^1.18.2',
         'script-ext-html-webpack-plugin': '^2.1.3',
         'stylelint': '^13.6.1',
-        'svn-info': '^1.0.0',
         'tasksfile': '^5.1.0',
         'vue-template-compiler': '^2.6.11',
         'webpackbar': '^4.0.0',
@@ -109,8 +108,8 @@ module.exports = (api, options, rootOptions) => {
     // 安装一些基础公共库
     api.extendPackage({
       dependencies: {
-        '@winner-fed/cloud-utils': '*',
-        '@winner-fed/magicless': '*',
+        '@lawrence_ch/cloud-utils': '*',
+        '@lawrence_ch/magicless': '*',
         'axios': '^0.19.1',
         'normalize.css': '^8.0.1',
         'register-service-worker': '^1.6.2',
@@ -131,10 +130,10 @@ module.exports = (api, options, rootOptions) => {
         '@vue/cli-service': '~4.5.0',
         '@vue/eslint-config-prettier': '^6.0.0',
         '@vue/eslint-config-typescript': '^5.0.1',
-        '@winner-fed/eslint-config-win': '^1.0.2',
-        '@winner-fed/stylelint-config-win': '^0.1.0',
-        '@winner-fed/vue-cli-plugin-eslint': '^1.0.0',
-        '@winner-fed/vue-cli-plugin-stylelint': '^1.0.2',
+        '@lawrence_ch/eslint-config-win': '^1.0.1',
+        '@lawrence_ch/stylelint-config-win': '^0.1.0',
+        '@lawrence_ch/vue-cli-plugin-eslint': '^1.0.0',
+        '@lawrence_ch/vue-cli-plugin-stylelint': '^1.0.0',
         'add-asset-html-webpack-plugin': '^3.1.3',
         'archiver': '^3.0.0',
         'chalk': '^2.4.1',
@@ -146,7 +145,6 @@ module.exports = (api, options, rootOptions) => {
         'prettier': '^1.19.1',
         'script-ext-html-webpack-plugin': '^2.1.3',
         'stylelint': '^13.6.1',
-        'svn-info': '^1.0.0',
         'tasksfile': '^5.1.0',
         'typescript': '~3.7.5',
         'vue-template-compiler': '^2.6.11',

@@ -1,15 +1,17 @@
-'use strict';
-
+<%_ if (options.application === 'offline') { _%>
 const fs = require('fs');
 const path = require('path');
-const {sh, cli} = require('tasksfile');
+<%_ } _%>
+const { sh } = require('tasksfile');
 const chalk = require('chalk');
 const rawArgv = process.argv.slice(2);
 const args = rawArgv.join(' ');
 
+<%_ if (options.application === 'offline') { _%>
 const resolve = (dir) => {
   return path.join(__dirname, '../', dir);
 };
+<%_ } _%>
 
 // 便于捕捉 build 之后的错误，然后进行自定义处理
 // 配合 jenkins 执行 job

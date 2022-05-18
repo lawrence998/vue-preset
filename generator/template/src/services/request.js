@@ -76,7 +76,7 @@ function checkStatus (response) {
 const axiosConfig = {
   success: (config) => {
     // 在请求开始前，对之前的请求做检查取消操作
-    removePending(config);
+    removePending(response.config);
     // 将当前请求添加到 pending 中
     addPending(config);
     // 以下代码，鉴权token,可根据具体业务增删。

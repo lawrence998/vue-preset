@@ -6,5 +6,5 @@
 // https://stylelint.docschina.org/user-guide/rules/
 module.exports = {
   root: true,
-  extends: '@winner-fed/stylelint-config-win'
+  extends: '@lawrence_ch/stylelint-config-win'
 };

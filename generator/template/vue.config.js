@@ -1,12 +1,13 @@
 const path = require('path');
 const pkg = require('./package.json');
 const webpack = require('webpack');
-const { formatDate } = require('@winner-fed/cloud-utils');
+const { formatDate } = require('@lawrence_ch/cloud-utils');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const VueRouterInvokeWebpackPlugin = require('@liwb/vue-router-invoke-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const cliLintRules = require('./.eslintrc.js');
 
 const N = '\n';
 const resolve = (dir) => {
@@ -53,7 +54,7 @@ const genPlugins = () => {
       // bannerPlugin
       new webpack.BannerPlugin({
         banner:
-          `@author: Lawrence${
+          `@author: Lawrence998${
             N}@version: ${pkg.version}${
             N}@description: Build time ${formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss')}}
           `
@@ -162,10 +163,10 @@ module.exports = {
         '@views': resolve('src/views'),
 
         // 文件别名
-        'services': resolve('src/services'),
-        'variable': resolve('src/assets/style/variable.less'),
-        'utils': resolve('node_modules/@winner-fed/cloud-utils/dist/cloud-utils.esm'),
-        'mixins': resolve('node_modules/@winner-fed/magicless/magicless.less'),
+        services: resolve('src/services'),
+        variable: resolve('src/assets/style/variable.less'),
+        utils: resolve('node_modules/@lawrence_ch/cloud-utils/dist/cloud-utils.esm'),
+        mixins: resolve('node_modules/@lawrence_ch/magicless/magicless.less'),
         <%_ if (options.application === 'offline') { _%>
         'native-bridge-methods': resolve('node_modules/@winner-fed/native-bridge-methods/dist/native-bridge-methods.esm')
         <%_ } _%>
@@ -280,6 +281,7 @@ module.exports = {
   },
   pluginOptions: {
     lintStyleOnBuild: true,
-    stylelint: {}
+    stylelint: {},
+    cliLintRules: cliLintRules.rules
   }
 };
