@@ -70,6 +70,7 @@ module.exports = (api, options, rootOptions) => {
         'stylelint': '^13.6.1',
         'tasksfile': '^5.1.0',
         'vue-template-compiler': '^2.6.11',
+        'vue-eslint-parser': '^7.11.0',
         'webpackbar': '^4.0.0',
         'webstorm-disable-index': '^1.2.0',
         'mockjs': '^1.1.0'
@@ -148,6 +149,7 @@ module.exports = (api, options, rootOptions) => {
         'tasksfile': '^5.1.0',
         'typescript': '~3.7.5',
         'vue-template-compiler': '^2.6.11',
+        'vue-eslint-parser': '^7.11.0',
         'webpackbar': '^4.0.0',
         'webstorm-disable-index': '^1.2.0',
         'mockjs': '^1.1.0'
