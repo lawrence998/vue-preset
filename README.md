@@ -11,6 +11,9 @@ npm install -g @vue/cli
 vue create --preset lawrence998/vue-preset my-project
 # or
 vue create --preset direct:https://github.com/lawrence998/vue-preset my-project --clone
+# 在gitlab私有服务器远程 preset 创建项目
+vue create --preset gitlab:my-gitlab-server.com:group/projectname --clone my-project
+vue create --preset direct:ssh://git@my-gitlab-server.com/group/projectname.git --clone my-project
 
 # 本地预览
 cd my-project && yarn run serve
